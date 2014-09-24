@@ -105,25 +105,18 @@ public class ValidateUtil {
                             if (validation != null) {
                                 validation.add(validator);
                             }
-                        }
-//                        else if (ValidationTags.EMAIL_ADDRESS.is(name))
-//                        {
-//                            EmailAddressRule validator = new EmailAddressRule();
-//                            validator.equal = parser.getAttributeValue(null, "value");
-//
-//                            int text = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
-//                            if (text != -1)
-//                            {
-//                                validator.text = context.getString(text);
-//                            }
-//
-//                            if (validation != null)
-//                            {
-//                                validation.add(validator);
-//                            }
-//
-//                        }
-                        else if (ValidationTags.RULES.is(name) && factory != null) {
+                        } else if (ValidationTags.EMAIL_ADDRESS.is(name)) {
+                            EmailAddressRule validator = new EmailAddressRule();
+
+                            int text = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
+                            if (text != -1) {
+                                validator.text = context.getString(text);
+                            }
+
+                            if (validation != null) {
+                                validation.add(validator);
+                            }
+                        } else if (ValidationTags.RULES.is(name) && factory != null) {
                             int id = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
                             String text = "";
 
