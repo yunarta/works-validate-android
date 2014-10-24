@@ -64,7 +64,6 @@ public class ValidateUtil {
                 switch (type) {
                     case XmlResourceParser.START_TAG: {
                         String name = parser.getName();
-//                        Log.d("xmlparser", "name = " + name);
 
                         if (ValidationTags.VALIDATE.is(name)) {
                             validation = new Validation();
