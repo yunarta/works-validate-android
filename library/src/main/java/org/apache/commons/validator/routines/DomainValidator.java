@@ -19,6 +19,7 @@ package org.apache.commons.validator.routines;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * <p><b>Domain name</b> validation routines.</p>
@@ -165,7 +166,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is an infrastructure TLD
      */
     public boolean isValidInfrastructureTld(String iTld) {
-        return INFRASTRUCTURE_TLD_LIST.contains(chompLeadingDot(iTld.toLowerCase()));
+        return INFRASTRUCTURE_TLD_LIST.contains(chompLeadingDot(iTld.toLowerCase(Locale.ENGLISH)));
     }
 
     /**
@@ -176,7 +177,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a generic TLD
      */
     public boolean isValidGenericTld(String gTld) {
-        return GENERIC_TLD_LIST.contains(chompLeadingDot(gTld.toLowerCase()));
+        return GENERIC_TLD_LIST.contains(chompLeadingDot(gTld.toLowerCase(Locale.ENGLISH)));
     }
 
     /**
@@ -187,7 +188,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is a country code TLD
      */
     public boolean isValidCountryCodeTld(String ccTld) {
-        return COUNTRY_CODE_TLD_LIST.contains(chompLeadingDot(ccTld.toLowerCase()));
+        return COUNTRY_CODE_TLD_LIST.contains(chompLeadingDot(ccTld.toLowerCase(Locale.ENGLISH)));
     }
 
     /**
@@ -198,7 +199,7 @@ public class DomainValidator implements Serializable {
      * @return true if the parameter is an local TLD
      */
     public boolean isValidLocalTld(String iTld) {
-        return LOCAL_TLD_LIST.contains(chompLeadingDot(iTld.toLowerCase()));
+        return LOCAL_TLD_LIST.contains(chompLeadingDot(iTld.toLowerCase(Locale.ENGLISH)));
     }
 
     private String chompLeadingDot(String str) {
