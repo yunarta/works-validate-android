@@ -19,6 +19,7 @@ public class ValidateUtil {
         EQUAL("equal"),
         EMAIL_ADDRESS("email-address"),
         VALID_URL("valid-url"),
+        PATTERN("pattern"),
         RULES("rules"),;
 
         private String mTag;
@@ -94,6 +95,18 @@ public class ValidateUtil {
                         } else if (ValidationTags.EQUAL.is(name)) {
                             EqualRule validator = new EqualRule();
                             validator.equal = parser.getAttributeValue(null, "value");
+
+                            int text = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
+                            if (text != -1) {
+                                validator.text = context.getString(text);
+                            }
+
+                            if (validation != null) {
+                                validation.add(validator);
+                            }
+                        } else if (ValidationTags.PATTERN.is(name)) {
+                            PatternRule validator = new PatternRule();
+                            validator.pattern = parser.getAttributeValue(null, "matches");
 
                             int text = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
                             if (text != -1) {
