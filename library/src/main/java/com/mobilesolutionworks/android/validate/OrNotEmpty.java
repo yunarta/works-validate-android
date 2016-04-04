@@ -1,33 +1,28 @@
 package com.mobilesolutionworks.android.validate;
 
 import android.os.Bundle;
-import com.mobilesolutionworks.android.managedview.IObjectProvider;
 
 /**
  * Created by yunarta on 25/6/14.
  */
-public class OrNotEmpty extends ValidationRule
-{
+public class OrNotEmpty extends ValidationRule {
     public String other;
 
     @Override
-    public void onCreate(Bundle bundle)
-    {
+    public void onCreate(Bundle bundle) {
 
     }
 
     @Override
-    public boolean validate(IObjectProvider provider, String name, String property)
-    {
-        Object first = provider.getProperty(name, property);
-        Object second = provider.getProperty(name, other);
+    public boolean validate(Bundle bundle, String property) {
+        Object first = bundle.get(property);
+        Object second = bundle.get(other);
 
-        return first != null || second != null;
+        return (first != null || second != null);
     }
 
     @Override
-    public boolean onValidate(Object value)
-    {
+    public boolean onValidate(Object value) {
         return true;
     }
 }

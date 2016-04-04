@@ -7,15 +7,13 @@ import java.util.LinkedHashSet;
  */
 public class Validation
 {
-    public String name;
-
     public String property;
 
     public LinkedHashSet<ValidationRule> rules;
 
     public Validation()
     {
-        rules = new LinkedHashSet<ValidationRule>();
+        rules = new LinkedHashSet<>();
     }
 
     public void add(ValidationRule rule)

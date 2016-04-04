@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
 import android.text.TextUtils;
-import com.mobilesolutionworks.android.managedview.IObjectProvider;
 
 import java.util.LinkedHashSet;
 
@@ -19,6 +18,8 @@ public class ValidateUtil {
         OR_NOT_EMPTY("or-not-empty"),
         EQUAL("equal"),
         EMAIL_ADDRESS("email-address"),
+        VALID_URL("valid-url"),
+        PATTERN("pattern"),
         RULES("rules"),;
 
         private String mTag;
@@ -67,7 +68,6 @@ public class ValidateUtil {
 
                         if (ValidationTags.VALIDATE.is(name)) {
                             validation = new Validation();
-                            validation.name = parser.getAttributeValue(null, "name");
                             validation.property = parser.getAttributeValue(null, "property");
 
                         } else if (ValidationTags.NOT_EMPTY.is(name)) {
@@ -104,8 +104,31 @@ public class ValidateUtil {
                             if (validation != null) {
                                 validation.add(validator);
                             }
+                        } else if (ValidationTags.PATTERN.is(name)) {
+                            PatternRule validator = new PatternRule();
+                            validator.pattern = parser.getAttributeValue(null, "matches");
+
+                            int text = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
+                            if (text != -1) {
+                                validator.text = context.getString(text);
+                            }
+
+                            if (validation != null) {
+                                validation.add(validator);
+                            }
                         } else if (ValidationTags.EMAIL_ADDRESS.is(name)) {
                             EmailAddressRule validator = new EmailAddressRule();
+
+                            int text = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
+                            if (text != -1) {
+                                validator.text = context.getString(text);
+                            }
+
+                            if (validation != null) {
+                                validation.add(validator);
+                            }
+                        } else if (ValidationTags.VALID_URL.is(name)) {
+                            ValidURLRule validator = new ValidURLRule();
 
                             int text = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
                             if (text != -1) {
@@ -169,11 +192,11 @@ public class ValidateUtil {
         }
     }
 
-    public boolean validate(IObjectProvider objectProvider) {
+    public boolean validate(Bundle bundle) {
         mLastError = null;
         for (Validation validation : mValidations) {
             for (ValidationRule rule : validation.rules) {
-                if (!rule.validate(objectProvider, validation.name, validation.property)) {
+                if (!rule.validate(bundle, validation.property)) {
                     mLastError = rule.text;
                     return false;
                 }
