@@ -129,8 +129,8 @@ public class RegexValidator implements Serializable {
         if (value == null) {
             return false;
         }
-        for (int i = 0; i < patterns.length; i++) {
-            if (patterns[i].matcher(value).matches()) {
+        for (Pattern pattern : patterns) {
+            if (pattern.matcher(value).matches()) {
                 return true;
             }
         }
@@ -149,13 +149,13 @@ public class RegexValidator implements Serializable {
         if (value == null) {
             return null;
         }
-        for (int i = 0; i < patterns.length; i++) {
-            Matcher matcher = patterns[i].matcher(value);
+        for (Pattern pattern : patterns) {
+            Matcher matcher = pattern.matcher(value);
             if (matcher.matches()) {
                 int count = matcher.groupCount();
                 String[] groups = new String[count];
                 for (int j = 0; j < count; j++) {
-                    groups[j] = matcher.group(j+1);
+                    groups[j] = matcher.group(j + 1);
                 }
                 return groups;
             }
@@ -176,16 +176,16 @@ public class RegexValidator implements Serializable {
         if (value == null) {
             return null;
         }
-        for (int i = 0; i < patterns.length; i++) {
-            Matcher matcher = patterns[i].matcher(value);
+        for (Pattern pattern : patterns) {
+            Matcher matcher = pattern.matcher(value);
             if (matcher.matches()) {
                 int count = matcher.groupCount();
                 if (count == 1) {
                     return matcher.group(1);
                 }
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 for (int j = 0; j < count; j++) {
-                    String component = matcher.group(j+1);
+                    String component = matcher.group(j + 1);
                     if (component != null) {
                         buffer.append(component);
                     }
@@ -201,7 +201,7 @@ public class RegexValidator implements Serializable {
      * @return A String representation of this validator
      */
     public String toString() {
-        StringBuffer buffer = new StringBuffer();
+        StringBuilder buffer = new StringBuilder();
         buffer.append("RegexValidator{");
         for (int i = 0; i < patterns.length; i++) {
             if (i > 0) {

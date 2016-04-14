@@ -51,7 +51,7 @@ public class ValidateUtil {
 
     public ValidateUtil(Context context, int xml, ValidationRuleFactory factory, boolean warn) {
         try {
-            mValidations = new LinkedHashSet<Validation>();
+            mValidations = new LinkedHashSet<>();
 
             XmlResourceParser parser = context.getResources().getXml(xml);
             parser.next();
@@ -59,7 +59,6 @@ public class ValidateUtil {
             int type;
             type = parser.getEventType();
             Validation validation = null;
-            ValidationRule rule = null;
 
             while (type != XmlResourceParser.END_DOCUMENT) {
                 switch (type) {

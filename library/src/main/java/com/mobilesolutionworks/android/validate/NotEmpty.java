@@ -18,7 +18,7 @@ public class NotEmpty extends ValidationRule {
         if (value instanceof String) {
             return !TextUtils.isEmpty((String) value);
         } else if (value instanceof Integer) {
-            return ((Integer) value).intValue() > 0;
+            return (Integer) value > 0;
         } else {
             return value != null;
         }

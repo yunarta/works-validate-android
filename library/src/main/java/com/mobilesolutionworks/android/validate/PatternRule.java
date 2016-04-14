@@ -16,10 +16,7 @@ public class PatternRule extends ValidationRule
     }
 
     @Override
-    public boolean onValidate(Object value)
-    {
-        if (value == null) return false;
-
-        return String.valueOf(value).matches(pattern);
+    public boolean onValidate(Object value) {
+        return value != null && String.valueOf(value).matches(pattern);
     }
 }
