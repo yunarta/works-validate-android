@@ -17,6 +17,7 @@ public class ValidateUtil {
         NOT_EMPTY("not-empty"),
         OR_NOT_EMPTY("or-not-empty"),
         EQUAL("equal"),
+        EQUAL_PROPERTY("equal-property"),
         EMAIL_ADDRESS("email-address"),
         VALID_URL("valid-url"),
         PATTERN("pattern"),
@@ -137,38 +138,18 @@ public class ValidateUtil {
                             if (validation != null) {
                                 validation.add(validator);
                             }
-                        } else if (ValidationTags.RULES.is(name) && factory != null) {
-                            int id = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
-                            String text = "";
+                        } else if (ValidationTags.EQUAL_PROPERTY.is(name)) {
+                            EqualProperty validator = new EqualProperty();
 
-                            if (id != -1) {
-                                text = context.getString(id);
-                            }
+                            validator.equalTo = parser.getAttributeValue(null, "property");
 
-                            Bundle bundle = new Bundle();
-
-                            int attributeCount = parser.getAttributeCount();
-                            for (int i = 0; i < attributeCount; i++) {
-                                if (parser.getAttributeNamespace(i) == null) {
-                                    String attName = parser.getAttributeName(i);
-                                    String attValue = parser.getAttributeValue(i);
-
-                                    bundle.putString(attName, attValue);
-                                }
-                            }
-
-                            bundle.putString("text", text);
-
-                            String className = parser.getAttributeValue(null, "class");
-                            ValidationRule notEmpty = factory.create(className, bundle);
-                            notEmpty.onCreate(bundle);
-
-                            if (!TextUtils.isEmpty(text)) {
-                                notEmpty.text = text;
+                            int text = parser.getAttributeResourceValue("http://schemas.android.com/apk/res/android", "text", -1);
+                            if (text != -1) {
+                                validator.text = context.getString(text);
                             }
 
                             if (validation != null) {
-                                validation.add(notEmpty);
+                                validation.add(validator);
                             }
                         }
                         break;

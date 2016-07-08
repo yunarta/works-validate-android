@@ -18,7 +18,7 @@ public class OrNotEmpty extends ValidationRule {
         Object first = bundle.get(property);
         Object second = bundle.get(other);
 
-        return (first != null || second != null);
+        return (first == null || second == null) || first.equals(other);
     }
 
     @Override
