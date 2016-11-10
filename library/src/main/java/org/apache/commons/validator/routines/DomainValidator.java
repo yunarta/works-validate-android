@@ -61,6 +61,7 @@ import java.util.Locale;
  * @version $Revision: 1227719 $ $Date: 2012-01-05 18:45:51 +0100 (Thu, 05 Jan 2012) $
  * @since Validator 1.4
  */
+@SuppressWarnings("SpellCheckingInspection")
 public class DomainValidator implements Serializable {
 
     private static final long serialVersionUID = -4407125112880174009L;
