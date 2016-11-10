@@ -3,7 +3,6 @@ package com.mobilesolutionworks.android.validate;
 import android.content.Context;
 import android.content.res.XmlResourceParser;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import java.util.LinkedHashSet;
 
