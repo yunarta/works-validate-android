@@ -1,22 +1,28 @@
 ext {
-    compileSdkVersion = 25
-    buildToolsVersion = "25.0.2"
-    targetSdkVersion = 25
-    supportLibVersion = "25.1.1"
+    compileSdkVersion = 27
+    targetSdkVersion = 27
 }
 
 buildscript {
+    ext.kotlin_version = "1.1.51"
     repositories {
+        google()
         jcenter()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.3.0-beta1'
+        classpath "com.android.tools.build:gradle:3.1.0-alpha04"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        google()
+
     }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
 }
